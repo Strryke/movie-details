@@ -3,8 +3,9 @@ import "./App.css";
 import QuizCard from "./components/QuizCard";
 import getQuestion from "./getQuestion";
 import Nav from "./components/Navbar";
-import { Center, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Center, Spinner, useDisclosure } from "@chakra-ui/react";
 import IntroModal from "./components/Intro";
+import Footer from "./components/Footer";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -26,17 +27,20 @@ function App() {
 
   return (
     <>
-      <IntroModal isOpen={isOpen} onClose={onClose} />
-      <Nav />
-      {loading ? (
-        <Center h="100vh" w="100vw">
-          <Spinner />
-        </Center>
-      ) : (
-        <>
-          <QuizCard {...question} nextQuestion={nextQuestion} />
-        </>
-      )}
+      <Box minH="100vh" display={"flex"} flexDirection="column">
+        <IntroModal isOpen={isOpen} onClose={onClose} />
+        <Nav />
+        {loading ? (
+          <Center h="100vh" w="100vw">
+            <Spinner />
+          </Center>
+        ) : (
+          <>
+            <QuizCard {...question} nextQuestion={nextQuestion} />
+          </>
+        )}
+        <Footer />
+      </Box>
     </>
   );
 }
