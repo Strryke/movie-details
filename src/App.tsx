@@ -1,29 +1,23 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import QuizCard from "./components/QuizCard";
-import { getQuestionList } from "./questionList";
+import getQuestion from "./getQuestion";
+import Nav from "./components/Navbar";
 
 function App() {
-  const [questionList, setQuestionList] = useState([]);
-
+  const [question, setQuestion] = useState({});
   useEffect(() => {
-    getQuestionList(setQuestionList);
+    getQuestion(setQuestion);
   }, []);
 
-  console.log(questionList);
+  const nextQuestion = () => {
+    getQuestion(setQuestion);
+  };
 
   return (
     <>
-      {questionList &&
-        questionList.map((question: any) => (
-          <QuizCard
-            title={question.title}
-            image={question.url}
-            subreddit={question.subreddit}
-            link={question.permalink}
-            selftext={question.selftext}
-          />
-        ))}
+      <Nav />
+      <QuizCard {...question} nextQuestion={nextQuestion} />
     </>
   );
 }

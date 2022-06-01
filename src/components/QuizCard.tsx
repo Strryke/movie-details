@@ -6,23 +6,30 @@ import {
   Text,
   Stack,
   Button,
+  ButtonGroup,
   Link,
   Badge,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import Popup from "./Popup";
 
-interface QuizCard {
-  image: string;
-  title: string;
-  subreddit: string;
-  link: string;
-}
+export default function QuizCard(props: any) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [correct, setCorrect] = useState(Boolean);
 
-export default function QuizCard({ image, title, shitty, link }: QuizCard) {
+  const handleSubmit = (e: any, choice: string) => {
+    e.preventDefault();
+    const answer = props.subreddit === "MovieDetails" ? "detail" : "shitty";
+    setCorrect(answer === choice ? true : false);
+    onOpen();
+  };
+
   return (
     <Center py={6}>
       <Box
-        maxW={"320px"}
+        maxW={"500px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}
@@ -31,7 +38,7 @@ export default function QuizCard({ image, title, shitty, link }: QuizCard) {
         textAlign={"center"}
       >
         <Image
-          src={`${image}`}
+          src={`${props.url}`}
           alt={"Image Alt"}
           mb={4}
           pos={"relative"}
@@ -47,78 +54,27 @@ export default function QuizCard({ image, title, shitty, link }: QuizCard) {
             right: 3,
           }}
         />
-        <Heading fontSize={"2xl"} fontFamily={"body"}>
-          Lindsey James
-        </Heading>
-        <Text fontWeight={600} color={"gray.500"} mb={4}>
-          @lindsey_jam3s
-        </Text>
         <Text
           textAlign={"center"}
           color={useColorModeValue("gray.700", "gray.400")}
           px={3}
         >
-          {title}
+          {props.title}
         </Text>
 
-        <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
-            fontWeight={"400"}
-          >
-            #art
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
-            fontWeight={"400"}
-          >
-            #photography
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
-            fontWeight={"400"}
-          >
-            #music
-          </Badge>
-        </Stack>
-
         <Stack mt={8} direction={"row"} spacing={4}>
-          <Button
-            flex={1}
-            fontSize={"sm"}
-            rounded={"full"}
-            _focus={{
-              bg: "gray.200",
-            }}
-          >
-            Message
-          </Button>
-          <Button
-            flex={1}
-            fontSize={"sm"}
-            rounded={"full"}
-            bg={"blue.400"}
-            color={"white"}
-            boxShadow={
-              "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-            }
-            _hover={{
-              bg: "blue.500",
-            }}
-            _focus={{
-              bg: "blue.500",
-            }}
-          >
-            Follow
-          </Button>
+          <Button onClick={(e) => handleSubmit(e, "shitty")}>💩</Button>
+          <Button onClick={(e) => handleSubmit(e, "detail")}>🔥</Button>
         </Stack>
       </Box>
+      {/* <Button onClick={props.nextQuestion}>Next</Button> */}
+      <Popup
+        isOpen={isOpen}
+        onClose={onClose}
+        result={correct}
+        nextQuestion={props.nextQuestion}
+        link={props.permalink}
+      />
     </Center>
   );
 }
