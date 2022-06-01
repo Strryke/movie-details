@@ -11,9 +11,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-export default function QuizCard({ image, title, shitty, link }) {
-  console.log(image);
-  console.log(title);
+interface QuizCard {
+  image: string;
+  title: string;
+  subreddit: string;
+  link: string;
+}
+
+export default function QuizCard({ image, title, shitty, link }: QuizCard) {
   return (
     <Center py={6}>
       <Box

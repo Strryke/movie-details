@@ -10,11 +10,19 @@ function App() {
     getQuestionList(setQuestionList);
   }, []);
 
+  console.log(questionList);
+
   return (
     <>
       {questionList &&
         questionList.map((question: any) => (
-          <QuizCard title={question.title} image={question.url} shitty={true} />
+          <QuizCard
+            title={question.title}
+            image={question.url}
+            subreddit={question.subreddit}
+            link={question.permalink}
+            selftext={question.selftext}
+          />
         ))}
     </>
   );
