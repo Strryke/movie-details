@@ -24,13 +24,16 @@ async function getData(url: string) {
   } else return data;
 }
 
-export default async function getQuestion(setter: Function, loading: Function) {
+export default async function getQuestion(
+  setter: Function,
+  loading: Function
+): Promise<Function | undefined> {
   loading(true);
   const type = randomChoice();
   if (type == "shitty") {
     const res = await getData(SHITTY_API);
     if (res === false) {
-      return getQuestion;
+      return getQuestion(setter, loading);
     } else {
       setter(res);
       loading(false);
@@ -38,10 +41,11 @@ export default async function getQuestion(setter: Function, loading: Function) {
   } else if (type == "detail") {
     const res = await getData(DETAIL_API);
     if (res === false) {
-      return getQuestion;
+      return getQuestion(setter, loading);
     } else {
       setter(res);
       loading(false);
     }
   }
+  return;
 }
