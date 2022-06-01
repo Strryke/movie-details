@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import QuizCard from "./components/QuizCard";
+import { getQuestionList } from "./questionList";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [questionList, setQuestionList] = useState([]);
+
+  useEffect(() => {
+    getQuestionList(setQuestionList);
+  }, []);
 
   return (
-    <div className="App">
-      hello world
-      <QuizCard />
-    </div>
+    <>
+      {questionList &&
+        questionList.map((question: any) => (
+          <QuizCard title={question.title} image={question.url} shitty={true} />
+        ))}
+    </>
   );
 }
 

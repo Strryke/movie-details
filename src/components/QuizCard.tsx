@@ -11,11 +11,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-export default function QuizCard(
-  image: string,
-  title: string,
-  shitty: boolean
-) {
+export default function QuizCard({ image, title, shitty, link }) {
+  console.log(image);
+  console.log(title);
   return (
     <Center py={6}>
       <Box
@@ -28,9 +26,7 @@ export default function QuizCard(
         textAlign={"center"}
       >
         <Image
-          src={
-            "https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-          }
+          src={`${image}`}
           alt={"Image Alt"}
           mb={4}
           pos={"relative"}
@@ -57,11 +53,7 @@ export default function QuizCard(
           color={useColorModeValue("gray.700", "gray.400")}
           px={3}
         >
-          Actress, musician, songwriter and artist. PM for work inquires or{" "}
-          <Link href={"#"} color={"blue.400"}>
-            #tag
-          </Link>{" "}
-          me in your posts
+          {title}
         </Text>
 
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
