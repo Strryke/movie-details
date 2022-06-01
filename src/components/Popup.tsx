@@ -19,10 +19,9 @@ export default function Popup({
   link,
   nextQuestion,
 }: any) {
-  console.log(result);
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>

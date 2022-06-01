@@ -11,6 +11,7 @@ import {
   Badge,
   useColorModeValue,
   useDisclosure,
+  Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Popup from "./Popup";
@@ -53,6 +54,7 @@ export default function QuizCard(props: any) {
             bottom: 0,
             right: 3,
           }}
+          marginX="auto"
         />
         <Text
           textAlign={"center"}
@@ -62,12 +64,15 @@ export default function QuizCard(props: any) {
           {props.title}
         </Text>
 
-        <Stack mt={8} direction={"row"} spacing={4}>
-          <Button onClick={(e) => handleSubmit(e, "shitty")}>💩</Button>
-          <Button onClick={(e) => handleSubmit(e, "detail")}>🔥</Button>
-        </Stack>
+        <Flex mt={8} direction={"row"} justifyContent="center">
+          <Button mx={2} onClick={(e) => handleSubmit(e, "shitty")}>
+            💩 Shit
+          </Button>
+          <Button mx={2} onClick={(e) => handleSubmit(e, "detail")}>
+            ✅ Legit
+          </Button>
+        </Flex>
       </Box>
-      {/* <Button onClick={props.nextQuestion}>Next</Button> */}
       <Popup
         isOpen={isOpen}
         onClose={onClose}
