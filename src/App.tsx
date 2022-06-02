@@ -22,7 +22,7 @@ function App() {
     }
   }, []);
 
-  if (questionList && Object.keys(question).length !== 0) {
+  if (questionList && Object.keys(question).length === 0) {
     getQuestion(questionList, setQuestion, setLoading);
   }
   const nextQuestion = () => {
