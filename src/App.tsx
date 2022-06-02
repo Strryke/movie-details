@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import QuizCard from "./components/QuizCard";
-import getQuestion from "./getQuestion";
+import { getBoth, getQuestion } from "./getQuestion";
 import Nav from "./components/Navbar";
 import { Box, Center, Spinner, useDisclosure } from "@chakra-ui/react";
 import IntroModal from "./components/Intro";
@@ -9,20 +9,24 @@ import Footer from "./components/Footer";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [question, setQuestion] = useState({});
+  const [questionList, setQuestionList] = useState();
+  const [question, setQuestion] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
+    getBoth(setQuestionList);
     const tutorial = localStorage.getItem("tutorial");
     if (tutorial !== "true") {
       onOpen();
       localStorage.setItem("tutorial", "true");
     }
-    getQuestion(setQuestion, setLoading);
   }, []);
 
+  if (questionList && !question) {
+    getQuestion(questionList, setQuestion, setLoading);
+  }
   const nextQuestion = () => {
-    getQuestion(setQuestion, setLoading);
+    getQuestion(questionList, setQuestion, setLoading);
   };
 
   return (
