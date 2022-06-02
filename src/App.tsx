@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 function App() {
   const [loading, setLoading] = useState(true);
   const [questionList, setQuestionList] = useState();
-  const [question, setQuestion] = useState();
+  const [question, setQuestion] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function App() {
     }
   }, []);
 
-  if (questionList && !question) {
+  if (questionList && Object.keys(question).length !== 0) {
     getQuestion(questionList, setQuestion, setLoading);
   }
   const nextQuestion = () => {
